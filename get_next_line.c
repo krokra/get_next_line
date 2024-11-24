@@ -78,7 +78,7 @@ char	*update_stock(char *stock)
 		j++;
 	if (stock[j] == '\n')
 		j++;
-	updated_stock = (char *)malloc(sizeof(char) * j + 1);
+	updated_stock = (char *)malloc((ft_strlen(stock) - (j + 1) * sizeof(char)));
 	while (stock[i + j] != '\0')
 	{
 		updated_stock[i] = stock[i + j];
