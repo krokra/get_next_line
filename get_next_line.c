@@ -42,10 +42,8 @@ char    *get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
-	line = NULL;
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
+	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
@@ -54,6 +52,8 @@ char    *get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
+	if (!buffer)
+		return (NULL);
 	stock = fill_stock(fd, buffer, stock);
 	if (*stock == 0)
 	{
@@ -69,22 +69,22 @@ char	*update_stock(char *stock)
 {
 	char	*updated_stock;
 	int		i;
-	int		j;
+	int		len;
 
 	i = 0;
-	j = 0;
+	len = 0;
 	if (stock == NULL || !stock)
 		return (NULL);
-	while (stock[j] != '\n' || stock[j] != '\0')
-		j++;
-	if (stock[j] == '\n')
-		j++;
-	updated_stock = (char *)malloc((ft_strlen(stock) - (j + 1) * sizeof(char)));
+	while (stock[len] != '\n' && stock[len] != '\0')
+		len++;
+	if (stock[len] == '\n')
+		len++;
+	updated_stock = (char *)malloc(((ft_strlen(stock) - len + 1) * sizeof(char)));
 	if (!updated_stock)
 		return (NULL);
-	while (stock[i + j] != '\0')
+	while (stock[i + len] != '\0')
 	{
-		updated_stock[i] = stock[i + j];
+		updated_stock[i] = stock[i + len];
 		i++;
 	}
 	free(stock);
@@ -100,7 +100,7 @@ char	*get_line_from_stock(char *stock, char *line)
 	line_len = 0;
 	if (stock == NULL || !stock)
 		return (NULL);
-	while (stock[line_len] != '\n' || stock[line_len] != '\0')
+	while (stock[line_len] != '\n' && stock[line_len] != '\0')
 		line_len++;
 	if (stock[line_len] == '\n')
 		line_len++;

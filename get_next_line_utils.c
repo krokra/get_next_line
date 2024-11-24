@@ -12,13 +12,14 @@
 
 #include "get_next_line.h"
 
-int ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
-    int i;
+	int	i;
 
-    while (str[i] != '\0')
-        i++;
-    return (i);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
 
 char    *ft_strdup(char *str)
@@ -36,16 +37,16 @@ char    *ft_strdup(char *str)
     return (tab);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s != '\0')
 	{
 		if (*s == (char)c)
-			return (s);
+			return (char *)(s);
 		s++;
 	}
 	if ((char)c == '\0' && *s == '\0')
-		return (s);
+		return (char *)(s);
 	return (0);
 }
 
