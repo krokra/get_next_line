@@ -15,9 +15,10 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
 #endif
-# include <fcntl.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
+# include <fcntl.h>
 
 int     ft_strlen(char *str);
 char	*ft_strjoin(char  *s1, char *s2);
