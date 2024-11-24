@@ -36,7 +36,7 @@ char    *ft_strdup(char *str)
     return (tab);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	while (*s != '\0')
 	{
@@ -45,11 +45,11 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	if ((char)c == '\0' && *s == '\0')
-		return ((char *)(s));
+		return (s);
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*tab;
 	int		i;
@@ -78,7 +78,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (tab);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*tab;
 	size_t	i;
