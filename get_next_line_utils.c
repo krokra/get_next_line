@@ -26,17 +26,37 @@ char    *ft_strdup(char *str)
 {
     char    *tab;
     int     i;
+    int		len;
 
+    len = ft_strlen(str);
     i = 0;
-    tab = (char *)malloc(sizeof(tab) * (ft_strlen(str) + 1));
+    tab = (char *)malloc(sizeof(char) * (len + 1));
     while (str[i])
     {
         tab[i] = str[i];
         i++;
     }
+    tab[i] = '\0';
     return (tab);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char) c)
+			return ((char *) &s[i]);
+		i++;
+	}
+	if (s[i] == (char) c)
+		return ((char *) &s[i]);
+	return (NULL);
+}
+
+/*
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s != '\0')
@@ -48,7 +68,7 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0' && *s == '\0')
 		return (char *)(s);
 	return (0);
-}
+}*/
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

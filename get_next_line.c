@@ -17,7 +17,7 @@ char	*fill_stock(int fd, char *buffer, char *stock)
 	ssize_t	read_value;
 
 	read_value = 1;
-	if (!stock)
+	if (!stock || stock == NULL)
 		stock = (ft_strdup(""));
 	while (read_value > 0)
 	{
@@ -73,7 +73,7 @@ char	*update_stock(char *stock)
 
 	i = 0;
 	len = 0;
-	if (stock == NULL || !stock)
+	if (stock == NULL)
 		return (NULL);
 	while (stock[len] != '\n' && stock[len] != '\0')
 		len++;
@@ -88,7 +88,7 @@ char	*update_stock(char *stock)
 		i++;
 	}
 	free(stock);
-	updated_stock[i] = '\0';
+	updated_stock[i] = 0;
 	return (updated_stock);
 }
 char	*get_line_from_stock(char *stock, char *line)
@@ -98,13 +98,13 @@ char	*get_line_from_stock(char *stock, char *line)
 
 	i = 0;
 	line_len = 0;
-	if (stock == NULL || !stock)
+	if (stock == NULL)
 		return (NULL);
 	while (stock[line_len] != '\n' && stock[line_len] != '\0')
 		line_len++;
 	if (stock[line_len] == '\n')
 		line_len++;
-	line = (char *)malloc(sizeof(char) * line_len + 1);
+	line = (char *)malloc(sizeof(char) * (line_len + 1));
 	if (!line)
 		return (NULL);
 	while (i < line_len)
@@ -112,7 +112,7 @@ char	*get_line_from_stock(char *stock, char *line)
 		line[i] = stock[i];
 		i++;
 	}
-	line[i] = '\0';
+	line[i] = 0;
 	return (line);
 }
 
