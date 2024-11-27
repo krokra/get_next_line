@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psirault <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 13:35:55 by psirault          #+#    #+#             */
-/*   Updated: 2024/11/26 13:42:17 by psirault         ###   ########.fr       */
+/*   Created: 2024/11/27 08:31:36 by psirault          #+#    #+#             */
+/*   Updated: 2024/11/27 08:49:27 by psirault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*fill_stock(int fd, char *buffer, char *stock)
 
 char	*get_next_line(int fd)
 {
-	static char	*stock;
+	static char	*stock[4096];
 	char		*line;
 	char		*buffer;
 
@@ -46,22 +46,21 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
+		free(stock[fd]);
 		free(buffer);
-		free(stock);
-		stock = NULL;
-		buffer = NULL;
+		stock[fd] = NULL;
 		return (NULL);
 	}
 	if (!buffer)
 		return (NULL);
-	stock = fill_stock(fd, buffer, stock);
-	if (*stock == 0)
+	stock[fd] = fill_stock(fd, buffer, stock[fd]);
+	if (*stock[fd] == 0)
 	{
-		free(stock);
-		return (stock = 0);
+		free(stock[fd]);
+		return (stock[fd] = 0);
 	}
-	line = get_line_from_stock(stock, line);
-	stock = update_stock(stock);
+	line = get_line_from_stock(stock[fd], line);
+	stock[fd] = update_stock(stock[fd]);
 	return (line);
 }
 
